@@ -82,7 +82,7 @@
     // app lifecycle. The developer will call init() later on
     // from the Flutter plugin channel.
 
-    [OneSignal initWithLaunchOptions:nil appId:nil handleNotificationAction:^(OSNotificationOpenedResult *result) {
+    [OneSignal initWithLaunchOptions:nil handleNotificationAction:^(OSNotificationOpenedResult *result) {
         @synchronized (OneSignalPlugin.sharedInstance.coldStartOpenResult) {
             OneSignalPlugin.sharedInstance.coldStartOpenResult = result;
         }
@@ -155,7 +155,9 @@
          [self handleInAppMessageClicked:action];
      }];
 
-    [OneSignal initWithLaunchOptions:nil appId:call.arguments[@"appId"] handleNotificationReceived:^(OSNotification *notification) {
+    [OneSignal setAppId: newAppId:call.arguments[@"appId"]];
+
+    [OneSignal initWithLaunchOptions:nil handleNotificationReceived:^(OSNotification *notification) {
         [self handleReceivedNotification:notification];
     } handleNotificationAction:^(OSNotificationOpenedResult *result) {
         [self handleNotificationOpened:result];

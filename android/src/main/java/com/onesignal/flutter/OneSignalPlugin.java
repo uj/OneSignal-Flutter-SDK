@@ -68,9 +68,9 @@ public class OneSignalPlugin
       @Override
       public boolean onViewDestroy(FlutterNativeView flutterNativeView) {
         // Remove all handlers so they aren't triggered with wrong context
-        OneSignal.removeNotificationReceivedHandler();
         OneSignal.removeNotificationOpenedHandler();
-        OneSignal.removeInAppMessageClickHandler();
+        OneSignal.removeNotificationWillShowInForegroundHandler();
+        OneSignal.setInAppMessageClickHandler(null);
         return false;
       }
     });
@@ -94,10 +94,6 @@ public class OneSignalPlugin
       this.setRequiresUserPrivacyConsent(call, result);
     else if (call.method.contentEquals("OneSignal#consentGranted"))
       this.consentGranted(call, result);
-    else if (call.method.contentEquals("OneSignal#inFocusDisplayType"))
-      replySuccess(result, inFocusDisplayOptionToInt(OneSignal.currentInFocusDisplayOption()));
-    else if (call.method.contentEquals("OneSignal#setInFocusDisplayType"))
-      this.setInFocusDisplayType(call, result);
     else if (call.method.contentEquals("OneSignal#promptPermission"))
       this.promptPermission(call, result);
     else if (call.method.contentEquals("OneSignal#getPermissionSubscriptionState"))
@@ -135,10 +131,11 @@ public class OneSignalPlugin
     String appId = call.argument("appId");
     Context context = flutterRegistrar.activeContext();
 
-    OneSignal.Builder builder = OneSignal.getCurrentOrNewInitBuilder();
-    builder.unsubscribeWhenNotificationsAreDisabled(true);
-    builder.filterOtherGCMReceivers(true);
-    builder.setInAppMessageClickHandler(this);
+    unsubscribeWhenNotificationsAreDisabled(true);
+    filterOtherGCMReceivers(true);
+    setInAppMessageClickHandler(this);
+    setNotificationOpenedHandler(this);
+
     OneSignal.init(context, null, appId, this, this);
 
     if (hasSetRequiresPrivacyConsent)
@@ -206,12 +203,6 @@ public class OneSignalPlugin
     }
 
     return 1;
-  }
-
-  private void setInFocusDisplayType(MethodCall call, Result reply) {
-    int displayType = call.argument("displayType");
-    OneSignal.setInFocusDisplaying(displayType);
-    replySuccess(reply, null);
   }
 
   private void promptPermission(MethodCall call, Result result) {
