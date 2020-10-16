@@ -78,16 +78,6 @@
 
     [OneSignal setMSDKType:@"flutter"];
 
-    // Wrapper SDK's call init with no app ID early on in the
-    // app lifecycle. The developer will call init() later on
-    // from the Flutter plugin channel.
-
-    [OneSignal initWithLaunchOptions:nil handleNotificationAction:^(OSNotificationOpenedResult *result) {
-        @synchronized (OneSignalPlugin.sharedInstance.coldStartOpenResult) {
-            OneSignalPlugin.sharedInstance.coldStartOpenResult = result;
-        }
-    } settings:@{kOSSettingsKeyAutoPrompt : @false, @"kOSSettingsKeyInOmitNoAppIdLogging" : @true}];
-
     OneSignalPlugin.sharedInstance.channel = [FlutterMethodChannel
                                      methodChannelWithName:@"OneSignal"
                                      binaryMessenger:[registrar messenger]];
@@ -124,8 +114,6 @@
         [self setInFocusDisplayType:call withResult:result];
     else if ([@"OneSignal#promptPermission" isEqualToString:call.method])
         [self promptPermission:call withResult:result];
-    else if ([@"OneSignal#getPermissionSubscriptionState" isEqualToString:call.method])
-        result(OneSignal.getPermissionSubscriptionState.toDictionary);
     else if ([@"OneSignal#setSubscription" isEqualToString:call.method])
         [self setSubscription:call withResult:result];
     else if ([@"OneSignal#postNotification" isEqualToString:call.method])
@@ -156,12 +144,6 @@
      }];
 
     [OneSignal setAppId: newAppId:call.arguments[@"appId"]];
-
-    [OneSignal initWithLaunchOptions:nil handleNotificationReceived:^(OSNotification *notification) {
-        [self handleReceivedNotification:notification];
-    } handleNotificationAction:^(OSNotificationOpenedResult *result) {
-        [self handleNotificationOpened:result];
-    } settings:call.arguments[@"settings"]];
 
     // If the user has required privacy consent, the SDK will not
     // add these observers. So we should delay adding the observers

@@ -197,17 +197,6 @@ class OneSignal {
     return response.cast<String, dynamic>();
   }
 
-  /// Returns an `OSPermissionSubscriptionState` object, which contains three properties:
-  ///   1. `subscriptionStatus` : Describes the current user's OneSignal Push notification subscription
-  ///   2. `emailSubscriptionStatus` : The current user's email subscription state
-  ///   3. `permissionStatus` : The current user's permission, ie. have they answered the iOS permission prompt
-  Future<OSPermissionSubscriptionState> getPermissionSubscriptionState() async {
-    var json =
-        await _channel.invokeMethod("OneSignal#getPermissionSubscriptionState");
-
-    return OSPermissionSubscriptionState(json.cast<String, dynamic>());
-  }
-
   /// Allows you to manually disable or enable push notifications for this user.
   /// Note: This method does not change the user's system (iOS) push notification
   /// permission status. If the user disabled (or never allowed) your application

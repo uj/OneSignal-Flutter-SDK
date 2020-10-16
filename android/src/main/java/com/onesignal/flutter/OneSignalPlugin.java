@@ -96,8 +96,6 @@ public class OneSignalPlugin
       this.consentGranted(call, result);
     else if (call.method.contentEquals("OneSignal#promptPermission"))
       this.promptPermission(call, result);
-    else if (call.method.contentEquals("OneSignal#getPermissionSubscriptionState"))
-      this.getPermissionSubscriptionState(result);
     else if (call.method.contentEquals("OneSignal#setSubscription"))
       this.setSubscription(call, result);
     else if (call.method.contentEquals("OneSignal#postNotification"))
@@ -208,11 +206,6 @@ public class OneSignalPlugin
   private void promptPermission(MethodCall call, Result result) {
     OneSignal.onesignalLog(OneSignal.LOG_LEVEL.ERROR, "promptPermission() is not applicable in Android");
     replySuccess(result, null);
-  }
-
-  private void getPermissionSubscriptionState(Result reply) {
-    OSPermissionSubscriptionState state = OneSignal.getPermissionSubscriptionState();
-    replySuccess(reply, OneSignalSerializer.convertPermissionSubscriptionStateToMap(state));
   }
 
   private void postNotification(MethodCall call, final Result reply) {

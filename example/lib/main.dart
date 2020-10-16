@@ -126,15 +126,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _handleGetPermissionSubscriptionState() {
-    print("Getting permissionSubscriptionState");
-    OneSignal.shared.getPermissionSubscriptionState().then((status) {
-      this.setState(() {
-        _debugLabelString = status.jsonRepresentation();
-      });
-    });
-  }
-
   void _handleSetEmail() {
     if (_emailAddress == null) return;
 
