@@ -52,19 +52,6 @@ class OneSignal {
     this._channel.setMethodCallHandler(_handleMethod);
   }
 
-  /// The initializer for OneSignal. Note that this initializer
-  /// accepts an iOSSettings object, in Android you can pass null.
-  Future<void> init(String appId,
-      {Map<OSiOSSettings, dynamic> iOSSettings}) async {
-    _onesignalLog(OSLogLevel.verbose,
-        "Initializing the OneSignal Flutter SDK ($sdkVersion)");
-
-    var finalSettings = _processSettings(iOSSettings);
-
-    await _channel.invokeMethod(
-        'OneSignal#init', {'appId': appId, 'settings': finalSettings});
-  }
-
   /// Sets the log level for the SDK. The first parameter (logLevel) controls
   /// how verbose logs in the console/logcat are, while the visual log level
   /// controls if the SDK will show alerts for each logged message
