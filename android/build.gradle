@@ -16,9 +16,12 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io" }
-        flatDir {
-            dirs 'src/main/libs'
+        //maven { url "https://jitpack.io" }
+        //flatDir {
+        //    dirs 'src/main/libs'
+        //}
+        maven {
+            url 'C:/repo/onesignal'
         }
     }
 }
