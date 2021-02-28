@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    api 'com.onesignal:OneSignal:3.15.7'
+    api 'xcom.onesignal:OneSignal:3.15.7'
     //implementation 'https://github.com/uj/OneSignal-Android-SDK:master-SNAPSHOT'
     //api 'com.github.uj:OneSignal-Android-SDK:master-SNAPSHOT'
     //api(name:'OneSignal-3.15.7', ext:'aar')
