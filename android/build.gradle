@@ -45,6 +45,7 @@ dependencies {
     api 'com.google.android.gms:play-services-location:[10.2.1, 16.0.99]'
     api 'com.google.android.gms:play-services-ads-identifier:[15.0.0, 16.0.99]'
     api 'com.google.android.gms:play-services-base:[10.2.1, 16.1.99]'
+    api 'com.onesignal.OutcomeEvent
 
 }
 
