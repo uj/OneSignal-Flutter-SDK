@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
@@ -34,7 +35,8 @@ android {
 }
 
 dependencies {
-    api 'com.onesignal:OneSignal:3.15.777'
+    //api 'com.onesignal:OneSignal:3.15.7'
+    api 'https://github.com/uj/OneSignal-Android-SDK:3.15.7'
 }
 
 // Adds required manifestPlaceholders keys to allow mainifest merge gradle step to complete
