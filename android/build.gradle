@@ -42,7 +42,6 @@ dependencies {
     //implementation 'https://github.com/uj/OneSignal-Android-SDK:master-SNAPSHOT'
     //api 'com.github.uj:OneSignal-Android-SDK:master-SNAPSHOT'
     api(name:'OneSignal-3.15.7', ext:'aar')
-    api(name:'OneSignal-3.15.7', ext:'pom')
     api(name:'OneSignal-3.15.7-sources', ext:'jar')
 
 }
