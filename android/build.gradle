@@ -3,9 +3,6 @@ version '2.6.3'
 
 buildscript {
     repositories {
-        maven {
-            url 'C:/repo'
-        }
         google()
         jcenter()
     }
@@ -20,7 +17,7 @@ rootProject.allprojects {
         maven {
             url 'C:/repo'
         }
-        google()
+        //google()
         //jcenter()
         //maven { url "https://jitpack.io" }
         //flatDir {
